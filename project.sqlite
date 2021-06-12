@@ -1,0 +1,44 @@
+ -- Cryptocurrency Exchange
+ SELECT *
+FROM transactions;
+
+-- Total money in table
+SELECT SUM(money_in) 
+  AS total
+FROM transactions;
+
+-- Total money user sold
+SELECT SUM(money_out) 
+  AS outgoing
+FROM transactions;
+
+-- Is bitcoin the most dominate
+--How many money in transactions are there
+SELECT COUNT(money_in) 
+  AS num_of_transactions
+FROM transactions;
+
+--How many money in transactions where 'bit' is the currency.
+SELECT COUNT(money_in) 
+  AS with_bit
+FROM transactions
+WHERE currency LIKE '%BIT%';
+
+-- What was the largest transaction?
+SELECT MAX(money_in)
+FROM transactions;
+
+SELECT MAX(money_out)
+FROM transactions;
+
+-- Avg money in for ethereum currency
+SELECT AVG(money_in)
+FROM transactions
+WHERE currency LIKE '%ETH%';
+
+-- Build a ledger for the different dates
+SELECT date AS 'Date', 
+   ROUND(AVG(money_in), 2) AS 'Average Buy',
+   ROUND(AVG(money_out), 2) AS 'Average Sell'
+FROM transactions
+GROUP BY date;
